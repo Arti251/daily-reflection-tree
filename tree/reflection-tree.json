@@ -1,0 +1,149 @@
+{
+  "START": {
+    "id": "START",
+    "type": "start",
+    "text": "Good evening. Let's reflect on your day.",
+    "next": "Q1"
+  },
+
+  "Q1": {
+    "id": "Q1",
+    "type": "question",
+    "text": "How would you describe today in one word?",
+    "options": ["Productive", "Difficult", "Mixed", "Chaotic"],
+    "next": {
+      "Productive": "A1_Q2_POS",
+      "Mixed": "A1_Q2_POS",
+      "Difficult": "A1_Q2_NEG",
+      "Chaotic": "A1_Q2_NEG"
+    }
+  },
+
+  "A1_Q2_POS": {
+    "id": "A1_Q2_POS",
+    "type": "question",
+    "text": "When things went well today, what felt most responsible?",
+    "options": ["My preparation", "My decisions", "Team support", "External luck"],
+    "signal": {
+      "My preparation": "axis1:internal",
+      "My decisions": "axis1:internal",
+      "Team support": "axis1:mixed",
+      "External luck": "axis1:external"
+    },
+    "next": "A1_R1"
+  },
+
+  "A1_Q2_NEG": {
+    "id": "A1_Q2_NEG",
+    "type": "question",
+    "text": "When things went wrong, what best describes your reaction?",
+    "options": ["I adjusted what I could", "I waited for help", "I felt stuck", "I blamed situation"],
+    "signal": {
+      "I adjusted what I could": "axis1:internal",
+      "I waited for help": "axis1:external",
+      "I felt stuck": "axis1:external",
+      "I blamed situation": "axis1:external"
+    },
+    "next": "A1_R1"
+  },
+
+  "A1_R1": {
+    "id": "A1_R1",
+    "type": "reflection",
+    "text": "Your perspective on control shapes how you interpret outcomes. Let's move to what you contributed today.",
+    "next": "Q2"
+  },
+
+  "Q2": {
+    "id": "Q2",
+    "type": "question",
+    "text": "Which moment best represents your contribution today?",
+    "options": [
+      "I helped someone beyond my role",
+      "I completed my assigned work",
+      "I felt underappreciated",
+      "Others didn't contribute enough"
+    ],
+    "signal": {
+      "I helped someone beyond my role": "axis2:contribution",
+      "I completed my assigned work": "axis2:neutral",
+      "I felt underappreciated": "axis2:entitlement",
+      "Others didn't contribute enough": "axis2:entitlement"
+    },
+    "next": "Q3"
+  },
+
+  "Q3": {
+    "id": "Q3",
+    "type": "question",
+    "text": "Did you do anything beyond what was expected?",
+    "options": ["Yes, significantly", "Yes, slightly", "No", "No, and I felt it was unfair"],
+    "signal": {
+      "Yes, significantly": "axis2:contribution",
+      "Yes, slightly": "axis2:contribution",
+      "No": "axis2:neutral",
+      "No, and I felt it was unfair": "axis2:entitlement"
+    },
+    "next": "A2_R1"
+  },
+
+  "A2_R1": {
+    "id": "A2_R1",
+    "type": "reflection",
+    "text": "Contribution is not just output—it is intent and effort beyond obligation. Now let's zoom out.",
+    "next": "Q4"
+  },
+
+  "Q4": {
+    "id": "Q4",
+    "type": "question",
+    "text": "When thinking about today's biggest challenge, who comes to mind first?",
+    "options": ["Just me", "My team", "A colleague", "End user/customer"],
+    "signal": {
+      "Just me": "axis3:self",
+      "My team": "axis3:team",
+      "A colleague": "axis3:other",
+      "End user/customer": "axis3:other"
+    },
+    "next": "Q5"
+  },
+
+  "Q5": {
+    "id": "Q5",
+    "type": "question",
+    "text": "What guided your decisions most today?",
+    "options": [
+      "My workload",
+      "Team coordination",
+      "Helping individuals",
+      "Impact on outcome/user"
+    ],
+    "signal": {
+      "My workload": "axis3:self",
+      "Team coordination": "axis3:team",
+      "Helping individuals": "axis3:other",
+      "Impact on outcome/user": "axis3:other"
+    },
+    "next": "A3_R1"
+  },
+
+  "A3_R1": {
+    "id": "A3_R1",
+    "type": "reflection",
+    "text": "Your attention radius determines how you interpret impact. Let's summarize your day.",
+    "next": "SUMMARY"
+  },
+
+  "SUMMARY": {
+    "id": "SUMMARY",
+    "type": "summary",
+    "text": "Today you showed {axis1}, {axis2}, and {axis3} orientation. Your patterns reflect how you interpret control, contribution, and impact.",
+    "next": "END"
+  },
+
+  "END": {
+    "id": "END",
+    "type": "end",
+    "text": "See you tomorrow. Reflection complete."
+  }
+}
